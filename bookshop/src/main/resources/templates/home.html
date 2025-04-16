@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Bookshop Home</title>
+</head>
+<body>
+    <h1>Welcome to the Bookshop</h1>
+
+    <p th:text="'Logged in as: ' + ${#authentication.name}"></p>
+
+    <div sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/admin}">Go to Admin Panel</a>
+    </div>
+	
+	<div style="position: absolute; top: 10px; right: 20px;">
+	    <a th:href="@{/profile}">My Profile</a>
+	</div>
+
+    <div>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+</body>
+</html>

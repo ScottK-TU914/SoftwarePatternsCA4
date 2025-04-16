@@ -1,0 +1,20 @@
+<form th:action="@{/update-profile}" th:object="${customer}" method="post">
+    <label for="phone">Phone:</label>
+    <input type="text" th:field="*{phone}" />
+    <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+
+    <label for="address">Address:</label>
+    <input type="text" th:field="*{address}" />
+    <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+
+    <label for="paymentMethod">Payment Method:</label>
+    <select th:field="*{paymentMethod}">
+        <option value="">--Select--</option>
+        <option value="paypal">PayPal</option>
+        <option value="credit">Credit Card</option>
+        <option value="visa">Visa</option>
+    </select>
+    <div th:if="${#fields.hasErrors('paymentMethod')}" th:errors="*{paymentMethod}"></div>
+
+    <button type="submit">Update</button>
+</form>
