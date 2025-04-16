@@ -11,6 +11,8 @@ public class Book {
     private String author;
     private String isbn;
     private Double price;
+    private String publisher;
+    private String category;
     private int stock;
 	public String getTitle() {
 		return title;
@@ -41,6 +43,18 @@ public class Book {
 	}
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+	public String getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 }
