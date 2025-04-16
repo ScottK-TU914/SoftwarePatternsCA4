@@ -1,5 +1,4 @@
 package com.bookshop.bookshop.repositories;
-
 import com.bookshop.bookshop.models.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
