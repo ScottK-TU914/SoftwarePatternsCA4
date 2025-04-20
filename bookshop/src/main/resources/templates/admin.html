@@ -1,11 +1,59 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Admin Dashboard</title>
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .form-section {
+            margin-bottom: 30px;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <h1>Admin Panel</h1>
-    <p>Only accessible to ADMIN users.</p>
-    <a th:href="@{/}">Back to Home</a>
+
+    <div th:if="${success}" class="success">Stock updated successfully.</div>
+    <div th:if="${error == 'unauthorized'}" class="error">Unauthorized: You must be an admin.</div>
+    <div th:if="${error == 'true'}" class="error">An error occurred while updating stock.</div>
+
+    <div class="form-section">
+        <form th:action="@{/admin/increaseStock}" method="post">
+            <label for="bookId">Select Book:</label>
+            <select name="bookId" required>
+                <option th:each="book : ${books}" 
+                        th:value="${book.id}" 
+                        th:text="${book.title}">Book Title</option>
+            </select>
+
+            <label for="quantity">Quantity to Add:</label>
+            <input type="number" name="quantity" min="1" required />
+
+            <button type="submit">Increase Stock</button>
+        </form>
+    </div>
+
+    <hr/>
+
+    <h2>Current Book Inventory</h2>
+    <ul>
+        <li th:each="book : ${books}">
+            <span th:text="${book.title}">Title</span> - 
+            <span th:text="${book.stock}">Stock</span>
+        </li>
+    </ul>
+
+    <div>
+        <a th:href="@{/}">Back to Home</a>
+    </div>
 </body>
 </html>
