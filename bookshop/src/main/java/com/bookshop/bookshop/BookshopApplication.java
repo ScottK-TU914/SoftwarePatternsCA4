@@ -1,6 +1,6 @@
 package com.bookshop.bookshop;
-
 import com.bookshop.bookshop.models.Book;
+import com.bookshop.bookshop.models.BookBuilder;
 import com.bookshop.bookshop.repositories.BookRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,73 +15,77 @@ public class BookshopApplication {
     }
 
     @Bean
-    public CommandLineRunner addSampleBook(BookRepository bookRepo) {
+    public CommandLineRunner addSampleBooks(BookRepository bookRepo) {
         return args -> {
             if (bookRepo.count() == 0) {
-                bookRepo.save(new Book(
-                        "The Hobbit",
-                        "J.R.R. Tolkien",
-                        "HarperCollins",
-                        "Fantasy",
-                        "9780007458424",
-                        14.99,
-                        "hobbit.jpg",
-                        10
-                ));
 
-                bookRepo.save(new Book(
-                        "Harry Potter and the Philosopher's Stone",
-                        "J.K Rowling",
-                        "Bloomsbury",
-                        "Fantasy",
-                        "9780747532699",
-                        19.50,
-                        "potter.jpg",
-                        7
-                ));
+                bookRepo.save(new BookBuilder()
+                        .setTitle("The Hobbit")
+                        .setAuthor("J.R.R. Tolkien")
+                        .setPublisher("HarperCollins")
+                        .setCategory("Fantasy")
+                        .setIsbn("9780007458424")
+                        .setPrice(14.99)
+                        .setImageFilename("hobbit.jpg")
+                        .setStock(10)
+                        .build());
 
-                bookRepo.save(new Book(
-                        "Murder on the Orient Express",
-                        "Agatha Christie",
-                        "William Morrow",
-                        "Crime",
-                        "9780062073501",
-                        19.99,
-                        "orient.jpg",
-                        23
-                ));
-                bookRepo.save(new Book(
-                        "The Hunger Games",
-                        "Suzanne Collins",
-                        "Scholastic",
-                        "Fiction",
-                        "9781407132075",
-                        30.99,
-                        "hungergames.jpg",
-                        30
-                ));
-                bookRepo.save(new Book(
-                        "1984",
-                        "George Orwell",
-                        "Penguin",
-                        "Fiction",
-                        "9780141036144",
-                        14.99,
-                        "1984.jpg",
-                        2
-                ));
-                bookRepo.save(new Book(
-                        "Of Mice and Men",
-                        "John Steinbeck",
-                        "Penguin",
-                        "Fiction",
-                        "9780141023571",
-                        10.00,
-                        "ofmiceandmen.jpg",
-                        25
-                ));
+                bookRepo.save(new BookBuilder()
+                        .setTitle("Harry Potter and the Philosopher's Stone")
+                        .setAuthor("J.K Rowling")
+                        .setPublisher("Bloomsbury")
+                        .setCategory("Fantasy")
+                        .setIsbn("9780747532699")
+                        .setPrice(19.50)
+                        .setImageFilename("potter.jpg")
+                        .setStock(7)
+                        .build());
 
-                System.out.println("Books added: The Hobbit, Harry Potter and the Philosopher's Stone, Murder on the Orient Express, The Hunger Games, 1984, Of Mice and Men  ");
+                bookRepo.save(new BookBuilder()
+                        .setTitle("Murder on the Orient Express")
+                        .setAuthor("Agatha Christie")
+                        .setPublisher("William Morrow")
+                        .setCategory("Crime")
+                        .setIsbn("9780062073501")
+                        .setPrice(19.99)
+                        .setImageFilename("orient.jpg")
+                        .setStock(23)
+                        .build());
+
+                bookRepo.save(new BookBuilder()
+                        .setTitle("The Hunger Games")
+                        .setAuthor("Suzanne Collins")
+                        .setPublisher("Scholastic")
+                        .setCategory("Fiction")
+                        .setIsbn("9781407132075")
+                        .setPrice(30.99)
+                        .setImageFilename("hungergames.jpg")
+                        .setStock(30)
+                        .build());
+
+                bookRepo.save(new BookBuilder()
+                        .setTitle("1984")
+                        .setAuthor("George Orwell")
+                        .setPublisher("Penguin")
+                        .setCategory("Fiction")
+                        .setIsbn("9780141036144")
+                        .setPrice(14.99)
+                        .setImageFilename("1984.jpg")
+                        .setStock(2)
+                        .build());
+
+                bookRepo.save(new BookBuilder()
+                        .setTitle("Of Mice and Men")
+                        .setAuthor("John Steinbeck")
+                        .setPublisher("Penguin")
+                        .setCategory("Fiction")
+                        .setIsbn("9780141023571")
+                        .setPrice(10.00)
+                        .setImageFilename("ofmiceandmen.jpg")
+                        .setStock(25)
+                        .build());
+
+                System.out.println("Books added: Using Builder Pattern");
             }
         };
     }
