@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bookshop.bookshop.models.Book;
+import com.bookshop.bookshop.models.CartItem;
 import com.bookshop.bookshop.repositories.BookRepository;
 import com.bookshop.bookshop.services.CartService;
 
@@ -41,10 +42,21 @@ public class CartController {
 
     @PostMapping("/checkout")
     public String checkout(Model model) {
-        double total = cartService.getTotal();
+        for (CartItem item : cartService.getItems()) {
+            Book book = item.getBook();
+            int purchasedQty = item.getQuantity();
+
+            if (book.getStock() >= purchasedQty) {
+                book.setStock(book.getStock() - purchasedQty);
+                bookRepository.save(book);
+            } else {
+                model.addAttribute("orderError", "Not enough stock for: " + book.getTitle());
+                return "redirect:/cart?error=stock";
+            }
+        }
 
         cartService.clear();
-        model.addAttribute("orderSuccess", true);
         return "redirect:/?orderSuccess=true";
     }
+
 }
