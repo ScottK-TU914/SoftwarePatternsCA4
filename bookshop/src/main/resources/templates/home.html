@@ -29,6 +29,28 @@
             font-weight: bold;
             margin: 10px;
         }
+
+        .search-sort {
+            margin: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-sort form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-sort input,
+        .search-sort select {
+            padding: 5px;
+        }
+
+        .search-sort button {
+            padding: 6px 12px;
+        }
     </style>
 </head>
 <body>
@@ -54,6 +76,33 @@
 
     <hr/>
 
+    <div class="search-sort">
+        <form method="get" action="/">
+            <input type="text" name="search" placeholder="Search..." />
+            <select name="filterBy">
+                <option value="title">Title</option>
+                <option value="category">Category</option>
+                <option value="author">Author</option>
+                <option value="publisher">Publisher</option>
+            </select>
+
+            <select name="sortBy">
+                <option value="">Sort By</option>
+                <option value="title">Title</option>
+                <option value="author">Author</option>
+                <option value="publisher">Publisher</option>
+                <option value="price">Price</option>
+            </select>
+
+            <select name="order">
+                <option value="asc">Asc</option>
+                <option value="desc">Desc</option>
+            </select>
+
+            <button type="submit">Apply</button>
+        </form>
+    </div>
+
     <h2>Book Catalogue</h2>
 
     <div class="book-grid">
@@ -62,6 +111,7 @@
             <h3 th:text="${book.title}">Book Title</h3>
             <p><strong>Author:</strong> <span th:text="${book.author}"></span></p>
             <p><strong>Publisher:</strong> <span th:text="${book.publisher}"></span></p>
+            <p><strong>Category:</strong> <span th:text="${book.category}"></span></p>
             <p><strong>Price:</strong> €<span th:text="${book.price}"></span></p>
             <p><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></p>
             <form th:action="@{/cart/add}" method="post">
