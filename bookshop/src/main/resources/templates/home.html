@@ -62,12 +62,13 @@
         <a th:href="@{/admin}">Go to Admin Panel</a>
     </div>
 
-    <div style="position: absolute; top: 10px; right: 20px;">
-        <a th:href="@{/profile}">My Profile</a>
-    </div>
+	<div style="position: absolute; top: 10px; right: 20px;">
+	    <a th:href="@{/profile}">My Profile</a><br/>
+	    <a th:href="@{/cart}">View Cart</a>
+	</div>
 
     <div>
-        <a th:href="@{/logout}">Logout</a>
+        <a th:href="@{/login}">Logout</a>
     </div>
 
     <div th:if="${orderSuccess}" class="alert">
