@@ -1,0 +1,25 @@
+<h2>Your Cart</h2>
+
+<table>
+    <tr>
+        <th>Title</th><th>Quantity</th><th>Price</th><th>Remove</th>
+    </tr>
+    <tr th:each="item : ${items}">
+        <td th:text="${item.book.title}"></td>
+        <td th:text="${item.quantity}"></td>
+        <td th:text="${item.book.price * item.quantity}"></td>
+        <td>
+            <form th:action="@{/cart/remove}" method="post">
+                <input type="hidden" name="bookId" th:value="${item.book.id}" />
+                <button type="submit">Remove</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<p>Total: €<span th:text="${total}"></span></p>
+
+<form th:action="@{/cart/checkout}" method="post">
+    <input type="text" name="voucher" placeholder="Enter voucher code" />
+    <button type="submit">Checkout</button>
+</form>
