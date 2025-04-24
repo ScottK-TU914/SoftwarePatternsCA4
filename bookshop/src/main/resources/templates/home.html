@@ -77,6 +77,10 @@
 	<div th:if="${addedToCart}" class="alert-success" style="color: green; margin-bottom: 1rem;">
 	    Added to cart!
 	</div>
+	<div th:if="${param.reviewSuccess}" class="alert">
+	    Review submitted successfully!
+	</div>
+
 
     <hr/>
 
@@ -122,6 +126,11 @@
                 <input type="hidden" th:name="bookId" th:value="${book.id}" />
                 <button type="submit">Add to Cart</button>
             </form>
+			<a th:href="@{'/reviews/book/' + ${book.id}}">
+			    <button type="button">Leave a Review</button>
+			</a>
+
+
         </div>
     </div>
 </body>
