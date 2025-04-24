@@ -1,15 +1,11 @@
 package com.bookshop.bookshop.command;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class OrderInvoker {
-    private OrderCommand command;
 
-    public void setCommand(OrderCommand command) {
-        this.command = command;
-    }
-
-    public void placeOrder() {
-        if (command != null) {
-            command.execute();
-        }
+    public void executeCommand(OrderCommand command) {
+        command.execute();
     }
 }
