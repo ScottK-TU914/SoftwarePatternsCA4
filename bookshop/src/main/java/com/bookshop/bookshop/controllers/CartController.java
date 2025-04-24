@@ -8,6 +8,7 @@ import com.bookshop.bookshop.models.CartItem;
 import com.bookshop.bookshop.repositories.BookRepository;
 import com.bookshop.bookshop.services.CartService;
 import com.bookshop.bookshop.services.OrderService;
+import com.bookshop.bookshop.strategy.PercentageDiscountStrategy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -32,8 +33,10 @@ public class CartController {
     public String showCart(Model model) {
         model.addAttribute("items", cartService.getItems());
         model.addAttribute("total", cartService.getTotal());
+        model.addAttribute("discountedTotal", cartService.getDiscountedTotal());
         return "cart";
     }
+
 
     @PostMapping("/add")
     public String addToCart(@RequestParam Long bookId, RedirectAttributes redirectAttributes) {
@@ -65,5 +68,19 @@ public class CartController {
         cartService.clear();
         return "redirect:/?orderSuccess=true";
     }
+    
+    @PostMapping("/applyVoucher")
+    public String applyVoucher(@RequestParam String voucherCode, RedirectAttributes redirectAttributes) {
+        if (voucherCode.equalsIgnoreCase("APRIL20")) {
+            cartService.applyDiscountStrategy(new PercentageDiscountStrategy(0.20));
+            redirectAttributes.addFlashAttribute("voucherApplied", true);
+        } else {
+            redirectAttributes.addFlashAttribute("invalidVoucher", true);
+        }
+        return "redirect:/cart";
+    }
+
+
+    
 }
 
