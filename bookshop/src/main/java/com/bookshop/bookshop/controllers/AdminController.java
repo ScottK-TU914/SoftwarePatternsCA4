@@ -2,7 +2,10 @@ package com.bookshop.bookshop.controllers;
 
 import com.bookshop.bookshop.admin.AdminService;
 import com.bookshop.bookshop.models.Book;
+import com.bookshop.bookshop.models.Order;
 import com.bookshop.bookshop.repositories.BookRepository;
+import com.bookshop.bookshop.services.OrderService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -21,14 +24,22 @@ public class AdminController {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private OrderService orderService;
+
     @GetMapping("/admin")
     public String adminPage(Model model,
                             @RequestParam(name = "success", required = false) String success,
                             @RequestParam(name = "error", required = false) String error) {
+
         List<Book> books = bookRepository.findAll();
+        List<Order> orders = orderService.getAllOrders();
+
         model.addAttribute("books", books);
+        model.addAttribute("orders", orders);
         model.addAttribute("success", success != null);
         model.addAttribute("error", error);
+
         return "admin";
     }
 

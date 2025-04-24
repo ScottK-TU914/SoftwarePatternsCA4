@@ -51,6 +51,18 @@
             <span th:text="${book.stock}">Stock</span>
         </li>
     </ul>
+	<h2>All Orders</h2>
+	<table>
+	    <tr>
+	        <th>User</th><th>Book</th><th>Quantity</th><th>Date</th>
+	    </tr>
+	    <tr th:each="order : ${orders}">
+	        <td th:text="${order.customer.username}"></td>
+	        <td th:text="${order.book.title}"></td>
+	        <td th:text="${order.quantity}"></td>
+			<td th:text="${order.orderDate}"></td>
+	    </tr>
+	</table>
 
     <div>
         <a th:href="@{/}">Back to Home</a>

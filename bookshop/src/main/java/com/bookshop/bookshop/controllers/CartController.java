@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -35,11 +36,13 @@ public class CartController {
     }
 
     @PostMapping("/add")
-    public String addToCart(@RequestParam Long bookId) {
+    public String addToCart(@RequestParam Long bookId, RedirectAttributes redirectAttributes) {
         Book book = bookRepository.findById(bookId).orElseThrow();
         cartService.addBook(book);
+        redirectAttributes.addFlashAttribute("addedToCart", true);
         return "redirect:/";
     }
+
 
     @PostMapping("/remove")
     public String removeFromCart(@RequestParam Long bookId) {
