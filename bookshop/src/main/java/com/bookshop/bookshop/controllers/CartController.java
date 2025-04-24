@@ -2,7 +2,6 @@ package com.bookshop.bookshop.controllers;
 
 import com.bookshop.bookshop.command.CartOrderCommand;
 import com.bookshop.bookshop.command.CommandService;
-import com.bookshop.bookshop.command.OrderInvoker;
 import com.bookshop.bookshop.models.Book;
 import com.bookshop.bookshop.models.CartItem;
 import com.bookshop.bookshop.repositories.BookRepository;
@@ -27,7 +26,7 @@ public class CartController {
     @Autowired private BookRepository bookRepository;
     @Autowired private CartService cartService;
     @Autowired private OrderService orderService;
-    @Autowired private OrderInvoker orderInvoker;
+    @Autowired private CommandService commandService;
 
     @GetMapping
     public String showCart(Model model) {
@@ -56,13 +55,14 @@ public class CartController {
     @PostMapping("/checkout")
     public String checkout(@AuthenticationPrincipal org.springframework.security.core.userdetails.User user) {
         for (CartItem item : cartService.getItems()) {
-        	CartOrderCommand command = new CartOrderCommand(
+        	CartOrderCommand cartOrderCommand = new CartOrderCommand(
         		    orderService,
         		    Long.valueOf(item.getBook().getId()),
         		    user.getUsername(),
         		    item.getQuantity()
         		);
-            orderInvoker.executeCommand(command);
+        	commandService.execute(cartOrderCommand);
+
         }
 
         cartService.clear();
