@@ -9,16 +9,17 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class BookshopApplication {
-
+//Main application to be run
     public static void main(String[] args) {
         SpringApplication.run(BookshopApplication.class, args);
     }
 
     @Bean
+    //to be ran after spring boots up, adding books into database using the builder pattern
     public CommandLineRunner addSampleBooks(BookRepository bookRepo) {
         return args -> {
             if (bookRepo.count() == 0) {
-
+//saving via the book repository 
                 bookRepo.save(new BookBuilder()
                         .setTitle("The Hobbit")
                         .setAuthor("J.R.R. Tolkien")
