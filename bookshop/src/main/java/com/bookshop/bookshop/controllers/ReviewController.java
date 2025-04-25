@@ -22,6 +22,8 @@ public class ReviewController {
     @Autowired private BookRepository bookRepo;
     @Autowired private ReviewRepository reviewRepo;
     @Autowired private CustomerRepository customerRepo;
+    
+    //creation of reviews handled, bookid, rating, comment, user used.
 
     @PostMapping("/add")
     public String addReview(@RequestParam Long bookId,
@@ -40,7 +42,7 @@ public class ReviewController {
         return "redirect:/?reviewSuccess=true";
 
     }
-
+//displays the review for a specfic book
     @GetMapping("/book/{id}")
     public String showReviews(@PathVariable Long id, Model model) {
         Book book = bookRepo.findById(id).orElse(null);

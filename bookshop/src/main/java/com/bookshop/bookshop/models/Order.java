@@ -10,10 +10,10 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+//many to one relationship 
     @ManyToOne
     private Customer customer;
-
+//many to one relationship 
     @ManyToOne
     private Book book;
 

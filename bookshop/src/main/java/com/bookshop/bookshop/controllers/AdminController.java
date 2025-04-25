@@ -17,16 +17,17 @@ import java.util.List;
 @Controller
 public class AdminController {
 
+	//taking the AdminService proxy to ensure role-based security
     @Autowired
     @Qualifier("adminServiceProxy")
     private AdminService adminService;
-
+//book data
     @Autowired
     private BookRepository bookRepository;
-
+//order data
     @Autowired
     private OrderService orderService;
-
+//displays the admin panel, showing a list of the books & orders
     @GetMapping("/admin")
     public String adminPage(Model model,
                             @RequestParam(name = "success", required = false) String success,
@@ -42,7 +43,7 @@ public class AdminController {
 
         return "admin";
     }
-
+//allows for increasement of book stock, only accessible to the admin role due to the proxy
     @PostMapping("/admin/increaseStock")
     public String increaseStock(@RequestParam Long bookId, @RequestParam int quantity) {
         try {

@@ -14,7 +14,7 @@ public class ProfileController {
 
     @Autowired
     private CustomerRepository customerRepository;
-
+//shows the profile page of the currently logged in user, done by principle (spring security) 
     @GetMapping("/profile")
     public String showProfile(Model model, Principal principal) {
         String username = principal.getName();
@@ -23,7 +23,7 @@ public class ProfileController {
         model.addAttribute("customer", customer);
         return "profile";
     }
-
+//updating profile and saving to database
     @PostMapping("/update-profile")
     public String updateProfile(@ModelAttribute("customer") Customer updatedCustomer, Principal principal) {
         String username = principal.getName();

@@ -18,12 +18,12 @@ import java.util.stream.Collectors;
 public class HomeController {
     private final BookRepository bookRepository;
 
-
+//constructor for book repo and order service
     @Autowired
     public HomeController(BookRepository bookRepository, OrderService orderService) {
         this.bookRepository = bookRepository;
     }
-
+//shows the homepage with search, filter and sorting
     @GetMapping("/")
     public String home(Model model,
                        @RequestParam(name = "orderSuccess", required = false) String orderSuccess,
@@ -31,7 +31,7 @@ public class HomeController {
                        @RequestParam(name = "filterBy", required = false) String filterBy,
                        @RequestParam(name = "sortBy", required = false) String sortBy,
                        @RequestParam(name = "order", required = false) String order) {
-
+//filtering the book list if search and filterby are used
         List<Book> books;
         if (search != null && !search.isEmpty() && filterBy != null) { 
             switch (filterBy) {
@@ -54,7 +54,7 @@ public class HomeController {
             books = bookRepository.findAll();
         }
 
-
+        // Applying sorting if sort by and order are provided
         if (sortBy != null && order != null) {
             Comparator<Book> comparator = switch (sortBy) {
                 case "title" -> Comparator.comparing(Book::getTitle, String.CASE_INSENSITIVE_ORDER);

@@ -15,16 +15,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService {
-
+//access to modify book data
     @Autowired
     private BookRepository bookRepo;
-
+//access to retrieve customer data 
     @Autowired
     private CustomerRepository customerRepo;
-
+//access to obtain and store orders
     @Autowired
     private OrderRepository orderRepository;
-
+//method to place an order of a book for a specific user
     public void placeOrder(Long bookId, String username, int quantity) {
         Book book = bookRepo.findById(bookId).orElse(null);
         Customer customer = customerRepo.findByUsername(username);
@@ -48,7 +48,7 @@ public class OrderService {
         }
     }
 
-
+//returns a list of all orders in the system
 
     public List<Order> getAllOrders() {
         return orderRepository.findAll();

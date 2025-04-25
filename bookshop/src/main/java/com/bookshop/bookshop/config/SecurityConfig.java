@@ -9,34 +9,36 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-@EnableWebSecurity
+@Configuration //config class for spring
+@EnableWebSecurity 
 public class SecurityConfig {
-
+    // user service used to load user data
     private final CustomUserDetailsService userDetailsService;
 
     public SecurityConfig(CustomUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
-    @Bean
+    @Bean // Bean for password encoding using BCrypt 
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    // Configures authentication provider with userDetailsService and password encoder
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(userDetailsService);
-        auth.setPasswordEncoder(passwordEncoder());
+        auth.setUserDetailsService(userDetailsService); //setting user details service
+        auth.setPasswordEncoder(passwordEncoder()); //BCrypt for password encoding
         return auth;
     }
-
+    //sets the security filter for HTTP security
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
+               // allows everyone to access registration, login, and CSS files
                 .requestMatchers("/register", "/login", "/css/**").permitAll()
+              // only users with ADMIN role can access /admin
                 .requestMatchers("/admin").hasRole("ADMIN") 
                 .anyRequest().authenticated()
             )

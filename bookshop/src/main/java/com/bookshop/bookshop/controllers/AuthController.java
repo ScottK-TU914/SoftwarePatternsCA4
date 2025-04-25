@@ -16,12 +16,12 @@ public class AuthController {
         this.customerRepo = customerRepo;
         this.passwordEncoder = encoder;
     }
-
+//will show the registration form (register.html)
     @GetMapping("/register")
     public String showRegistrationForm() {
         return "register";
     }
-
+//passes the user's registration with password, username, email and creates a new user for the database.
     @PostMapping("/register")
     public String processRegistration(@RequestParam String username,
                                       @RequestParam String email,
@@ -33,7 +33,7 @@ public class AuthController {
         customerRepo.save(customer);
         return "redirect:/login";
     }
-
+//displays the login form
     @GetMapping("/login")
     public String showLoginForm() {
         return "login";

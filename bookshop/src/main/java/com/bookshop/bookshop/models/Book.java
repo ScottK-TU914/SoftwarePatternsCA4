@@ -6,7 +6,7 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
+    //variables
 	private String title;
     private String author;
     private String isbn;
@@ -18,7 +18,7 @@ public class Book {
 
     public Book() {
     }
-
+//constructor 
     public Book(String title, String author, String publisher, String category, String isbn,
                 double price, String imageFilename, int stock) {
         this.setTitle(title);
@@ -30,7 +30,7 @@ public class Book {
         this.setImageFilename(imageFilename);
         this.setStock(stock);
     }
-    
+    //getters / setters
     public int getId() {
 		return id;
 	}
